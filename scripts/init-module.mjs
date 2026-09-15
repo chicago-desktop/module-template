@@ -146,7 +146,9 @@ export async function initialize(argv, root = defaultRoot) {
 
   const namespace = args.namespace ?? `${namespacePart(organization)}.${namespacePart(moduleName)}`
   const tag = args.tag ?? `${organization}-${moduleName}`
-  const githubOwner = args['github-owner'] ?? organization
+  // The Hub organization `windows` lives on GitHub as `wippy-windows`; any
+  // other organization is assumed to use the same name in both places.
+  const githubOwner = args['github-owner'] ?? (organization === 'windows' ? 'wippy-windows' : organization)
   if (!/^[a-z][a-z0-9_]*(\.[a-z][a-z0-9_]*)+$/.test(namespace)) throw new Error('--namespace must contain at least two lowercase dot-separated segments')
   if (!/^[a-z][a-z0-9.-]*-[a-z0-9.-]+$/.test(tag)) throw new Error('--tag must be a lowercase slug containing a hyphen')
   if (!/^[A-Za-z0-9_.-]+$/.test(githubOwner)) throw new Error('--github-owner is not a valid GitHub owner')

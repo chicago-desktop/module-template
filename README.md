@@ -24,6 +24,12 @@ needs, and the tests show how each part is checked.
 
    ```bash
    make init ORG=acme MODULE_NAME=notes TITLE="Notes"
+
+   `TITLE` names the menu folder and the harness, so it takes no slashes or
+   colons; a window title with them ("Add/Remove Programs") is set in the
+   entry's `meta.title` afterwards. The GitHub owner defaults to
+   `wippy-windows` for the Hub organization `windows` (`GITHUB_OWNER=` for
+   another).
    ```
 
    This renames `windows/module-template`, the namespace
