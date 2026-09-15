@@ -35,7 +35,7 @@ in full before changing the repository.
 
 ```bash
 make setup          # resolve dependencies (both wippy.lock files)
-make check          # identity, dependency ranges, embed list, test form, no Cyrillic
+make check          # identity, dependency ranges, embed list, tips, test form, no Cyrillic
 make lint           # tools/late-locals.py, then wippy lint of this namespace and the harness
 make test           # the harness's suites; writes test/shots/*.png
 make verify         # all of the above; what CI runs
@@ -64,6 +64,10 @@ when its stated invariant is objectively wrong.
 - **`wippy publish` packs only `src/`** and embeds only the `fs.directory`
   entries `wippy.yaml` lists under `embed:`; an image pack outside the list
   is not in the package. `make check` verifies it.
+- **A Welcome tip that is wrong is skipped without a word.** The Welcome
+  window finds only a `registry.entry` with `meta.type: chicago.tip` and
+  drops one without `data.text`; `make check` refuses both. A tip needs no
+  dependency on `chicago/welcome` (README, "Tips for the Welcome window").
 - **`${env:…}` in a registry entry resolves against the environment
   registry, not the OS**, and `exec` does not inherit the OS environment:
   the harness hands `HOME` and `PATH` to the base in `test/.wippy.yaml`.

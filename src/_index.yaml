@@ -96,3 +96,26 @@ entries:
     # the state. Add a policy of your own only for what your window reads.
     security:
       policies: [chicago.shell.security:view_state]
+
+  # chicago.module_template:tip
+  #
+  # A "Did you know..." tip for the Welcome window (chicago/welcome), which
+  # reads every `registry.entry` with `meta.type: chicago.tip`, ordered by
+  # `meta.order` and then by id (its own tips use 10 to 130). In `data`,
+  # `text` is the tip, one short paragraph (a tip without it is skipped);
+  # `image` is optional, a square pack picture `<pack entry>/<file>` drawn at
+  # 32 px or an illustration `<pack entry>/pictures/<file>` shown 100 px high;
+  # `open` is the window the Show Me button opens and `args` what it is
+  # opened with (a string, or a table sent as JSON). No dependency on
+  # chicago/welcome is needed; where it is not installed the entry is inert.
+  # Rewrite the text for your program, or delete the entry and its test.
+  - name: tip
+    kind: registry.entry
+    meta:
+      type: chicago.tip
+      order: 500
+      comment: "Welcome tip — opening Hello Window from the Start menu; Show Me opens it."
+    data:
+      text: "Hello Window counts your clicks. To open it, click Start, point to Programs, then Module Template, and click Hello Window."
+      image: chicago.module_template:images/hello
+      open: chicago.module_template:window

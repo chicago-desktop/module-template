@@ -91,6 +91,8 @@ window does and how it is used.
 - \`${namespace}:images\` — the module's pictures, an image pack of the
   shell (\`assets/images/{32,16}/<name>.png\`), named
   \`${namespace}:images/<name>\`.
+- \`${namespace}:tip\` — a "Did you know..." tip for the Welcome window
+  (\`meta.type: chicago.tip\`); inert on a desktop without chicago/welcome.
 
 The module depends on \`chicago/shell\` (the SDK, the image packs) and
 \`chicago/tui-desktop\` (the compositor), both resolved from their GitHub

@@ -67,8 +67,9 @@ lint and test together, what CI runs.
   pack is one.
 - `src/_index.yaml` — the registry: the namespace, the dependencies on
   `chicago/shell` and `chicago/tui-desktop`, the image pack, the `view`
-  library and the `window` process with its `meta.type: tui_desktop.window`
-  entry (title, menu group, picture, size, pixel renderer).
+  library, the `window` process with its `meta.type: tui_desktop.window`
+  entry (title, menu group, picture, size, pixel renderer), and `tip`, a
+  tip for the Welcome window.
 - `src/view.lua` — the window as data: `init`, `tree` (the component tree of
   a model) and `update` (what an action does); pure, so the tests exercise it
   without a compositor.
@@ -90,6 +91,8 @@ lint and test together, what CI runs.
 - `test/src/window_test.lua` — the registry entry the Start menu reads, the
   picture found through the shell's `images.get`, the process running the
   view, Esc closing it.
+- `test/src/tip_test.lua` — the Welcome tip as the Welcome window reads it:
+  found by its query, text, the picture at 32 px, the window Show Me opens.
 - `tools/late-locals.py` — finds a `local` declared below the function that
   reads it; `wippy lint` does not.
 - `scripts/` — `init-module.mjs` (the rename), `check-module.mjs` (the
@@ -138,6 +141,46 @@ any wiring of its own:
   ([docs/sdk.md, "Desktop widgets"](docs/sdk.md#desktop-widgets)).
 - **Pictures** — the image pack is found in the registry when a picture is
   asked for; a redrawn file shows without a restart.
+- **The Welcome window** — a `registry.entry` with `meta.type: chicago.tip`
+  is a "Did you know..." tip ([below](#tips-for-the-welcome-window)).
+
+## Tips for the Welcome window
+
+The Welcome window ([chicago/welcome](https://github.com/chicago-desktop/welcome))
+shows a "Did you know..." tip after each logon, and any module can bring
+tips of its own. The sample's is `chicago.module_template:tip` in
+`src/_index.yaml`:
+
+```yaml
+  - name: tip
+    kind: registry.entry
+    meta:
+      type: chicago.tip
+      order: 500
+      comment: "Welcome tip — opening Hello Window from the Start menu; Show Me opens it."
+    data:
+      text: "Hello Window counts your clicks. To open it, click Start, point to Programs, then Module Template, and click Hello Window."
+      image: chicago.module_template:images/hello
+      open: chicago.module_template:window
+```
+
+- `text` — the tip, one short paragraph (the panel holds about 300
+  characters); an entry without it is skipped.
+- `image` — optional: a square picture of a pack, `<pack entry>/<file>`
+  from its `32/` folder, drawn at 32 px; or an illustration from its
+  `pictures/` folder, `<pack entry>/pictures/<file>`, shown 100 px high
+  under the text (pixels only).
+- `open`, `args` — optional: the window the **Show Me** button opens, and
+  what with (a string, or a table sent as JSON). Show Me is disabled when
+  the entry is not loaded.
+- `meta.order` — tips run by order, then by id; Welcome's own use 10–130,
+  so a module's go after them.
+
+The tip needs no dependency on `chicago/welcome`: it is plain registry data,
+inert on a desktop without the Welcome window. `test/src/tip_test.lua`
+checks it the way the window reads it, and `make check` refuses a tip
+without text. Rewrite the text for your program, or delete the entry and
+its test.
 
 ## Traps
 

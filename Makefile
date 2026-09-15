@@ -44,8 +44,9 @@ setup:
 	$(WIPPY) update
 	cd test && $(WIPPY) update
 
-# The repository's invariants (identity, dependency ranges, embed list, no
-# Cyrillic, no secrets) and, in the pristine template, the initializer.
+# The repository's invariants (identity, dependency ranges, embed list,
+# Welcome tips with text, no Cyrillic, no secrets) and, in the pristine
+# template, the initializer.
 check:
 	node scripts/check-module.mjs
 	node scripts/test-initializer.mjs

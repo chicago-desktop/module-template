@@ -82,6 +82,41 @@ for (const file of yamlFiles) {
   }
 }
 
+// A Welcome tip (`meta.type: chicago.tip`) is found only as a
+// `registry.entry`, and one without `data.text` is skipped; the Welcome
+// window says nothing in either case, so the check does. Entries are the
+// items of `entries:` at its first item's indentation.
+const indentOf = (line) => line.match(/^\s*/)[0].length
+for (const file of yamlFiles) {
+  const lines = (await readFile(file, 'utf8')).split('\n')
+  const blocks = []
+  let itemIndent = null
+  for (let index = lines.findIndex((line) => /^entries:\s*$/.test(line)) + 1; index > 0 && index < lines.length; index += 1) {
+    const item = lines[index].match(/^(\s*)-\s+\S/)
+    if (item && (itemIndent === null || item[1].length === itemIndent)) {
+      itemIndent = item[1].length
+      blocks.push({ line: index + 1, lines: [] })
+    }
+    if (blocks.length > 0 && !/^\s*#/.test(lines[index])) blocks[blocks.length - 1].lines.push(lines[index])
+  }
+  for (const block of blocks) {
+    if (!block.lines.some((line) => /\btype:\s*['"]?chicago\.tip['"]?\s*(?:[,}#]|$)/.test(line))) continue
+    const where = `${posix(file)}:${block.line}`
+    if (!block.lines.some((line) => /^\s*(?:-\s*)?kind:\s*['"]?registry\.entry['"]?\s*$/.test(line))) {
+      report(`${where} a chicago.tip must be kind registry.entry; the Welcome window finds no other kind`)
+    }
+    const dataAt = block.lines.findIndex((line) => /^\s*data:/.test(line))
+    let text = dataAt >= 0 && /\{.*\btext:\s*(?!['"]{2})['"]?[^\s'",}]/.test(block.lines[dataAt])
+    for (let index = dataAt + 1; dataAt >= 0 && index < block.lines.length && indentOf(block.lines[index]) > indentOf(block.lines[dataAt]); index += 1) {
+      const field = block.lines[index].match(/^(\s*)text:\s*(.*?)\s*$/)
+      if (!field) continue
+      const next = block.lines[index + 1] ?? ''
+      text = field[2] === '' ? next.trim() !== '' && indentOf(next) > field[1].length : !/^(''|"")$/.test(field[2])
+    }
+    if (!text) report(`${where} a chicago.tip without data.text is skipped by the Welcome window`)
+  }
+}
+
 // Files under assets/ reach a running module only through an fs.directory
 // entry over that folder (an image pack is `meta.type: chicago.images`); a
 // folder nobody serves is pictures that never show.

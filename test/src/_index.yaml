@@ -56,6 +56,23 @@ entries:
       view: chicago.module_template:view
       window: chicago.module_template:window
 
+  - name: tip_test
+    kind: function.lua
+    meta:
+      type: test
+      comment: "The module's tip for the Welcome window — a chicago.tip entry the window finds, its text, its picture in the pack at 32 px, the window Show Me opens."
+      group: Module Template
+      suite: chicago_module_template
+    source: file://tip_test.lua
+    method: run
+    # `registry.find` is the Welcome window's own query; reading the pack
+    # takes `fs` and `gfx`, as in window_test.
+    modules: [registry, gfx, fs]
+    imports:
+      test: wippy.test:test
+      images: chicago.shell.theme:images
+      view: chicago.module_template:view
+
   - name: shots
     kind: fs.directory
     meta:
