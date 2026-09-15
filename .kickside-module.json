@@ -1,0 +1,12 @@
+{
+  "templateVersion": 1,
+  "initialized": false,
+  "identity": {
+    "organization": "windows",
+    "module": "module-template",
+    "namespace": "windows.module_template",
+    "tag": "windows-module-template",
+    "title": "Module Template",
+    "githubOwner": "wippy-windows"
+  }
+}
