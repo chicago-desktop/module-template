@@ -1,7 +1,7 @@
 version: "1.0"
 namespace: chicago.module_template
 
-# A module of the Windows 95 shell (chicago/shell): one sample window on the
+# A module of the Chicago shell (chicago/shell): one sample window on the
 # shell's SDK, split in two — `view` is the window as data (a pure library
 # the tests exercise) and `window` is the process that runs it — plus the
 # module's own image pack for the window's picture.
@@ -15,7 +15,7 @@ entries:
     kind: ns.definition
     meta:
       title: Module Template
-      description: A module of the Windows 95 shell made from the Windows module template — one sample window on the shell SDK.
+      description: A sample module for the Chicago desktop, made from the Chicago module template — one window on the shell SDK.
 
   # ─── Dependencies ────────────────────────────────────────────────────
   # A compatibility range, never an exact version: the lock holds the exact
@@ -24,7 +24,7 @@ entries:
     name: dep.chicago.shell
     kind: ns.dependency
     meta:
-      comment: The Windows 95 shell — its SDK lays out and draws the window, its image packs bring the pictures.
+      comment: The Chicago shell — its SDK lays out and draws the window, its image packs bring the pictures.
     component: chicago/shell
 
   - version: "*"

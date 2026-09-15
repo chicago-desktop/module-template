@@ -1,5 +1,5 @@
 # chicago/module-template — initialize, check, lint, test and publish a module
-# of the Windows 95 shell (chicago/shell).
+# of the Chicago shell (chicago/shell).
 
 # The module's root namespace; `make lint` checks it and the harness's.
 NS   := chicago.module_template

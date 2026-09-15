@@ -1,6 +1,6 @@
 ---
 name: wippy-window-app
-description: Add or repair a window application in the Wippy Windows shell. Use for registry registration, declarative window UI, client resize, scrolling, mouse input, lifecycle, and cell/pixel renderer integration in chicago/shell and chicago/tui-desktop. Keeps agents on the same SDK contract.
+description: Add or repair a window application in the Chicago shell. Use for registry registration, declarative window UI, client resize, scrolling, mouse input, lifecycle, and cell/pixel renderer integration in chicago/shell and chicago/tui-desktop. Keeps agents on the same SDK contract.
 ---
 
 > A copy of the skill of `chicago/shell` as of **chicago/shell 0.1.0** (git `e0b7d09` of

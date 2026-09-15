@@ -76,8 +76,8 @@ export function moduleReadme(identity) {
   const { organization, module: moduleName, namespace, title, githubOwner } = identity
   return `# ${organization}/${moduleName} — ${title}
 
-A module of the Windows 95 shell for the terminal desktop
-([chicago/shell](https://github.com/chicago-desktop/shell)): it adds
+A module of the Chicago shell for the terminal desktop, in the look of the
+mid-nineties desktops ([chicago/shell](https://github.com/chicago-desktop/shell)): it adds
 **${title}** to the Start menu under Programs. Describe here what the
 window does and how it is used.
 
@@ -98,11 +98,11 @@ The module depends on \`chicago/shell\` (the SDK, the image packs) and
 ## Developing
 
 \`\`\`bash
-make setup     # resolve the dependencies from the Hub (once, and after changing them)
+make setup     # resolve the dependencies (once, and after changing them)
 make check     # the repository's invariants
 make lint      # late locals, then wippy lint of this namespace and the harness
 make test      # the harness in test/: the view, the window, a shot in test/shots/
-make publish   # to the Hub, after \`wippy auth login\`
+make publish   # publish a release, after \`wippy auth login\`
 \`\`\`
 
 **A local build of the runtime fork is required**
@@ -116,8 +116,8 @@ shell's guide, and the skill for agents in
 [skills/wippy-window-app/SKILL.md](skills/wippy-window-app/SKILL.md); the
 rules of this repository are in [AGENTS.md](AGENTS.md).
 
-Made from [the Windows module template](${TEMPLATE_REPOSITORY}) for
-modules of the Windows 95 shell. Repository:
+Made from [the Chicago module template](${TEMPLATE_REPOSITORY}) for
+modules of the Chicago shell. Repository:
 https://github.com/${githubOwner}/${moduleName}.
 
 ## Licence

@@ -57,12 +57,12 @@ end
 function view.tree(model: any, context: any): any
     if model.about then
         return ui.message({title = "Hello Window", image = view.PACK .. "hello", icon = view.ICON, ok = "about_ok",
-            lines = {"A sample window on the shell SDK.", "Made from the Windows module template."}})
+            lines = {"A sample window on the shell SDK.", "Made from the Chicago module template."}})
     end
     return {kind = "column", children = {
         {kind = "menu", id = "bar", size = 1, entries = view.MENU},
         {kind = "column", padding = 1, gap = 1, children = {
-            {kind = "label", size = 1, text = "Hello from the Windows 95 shell."},
+            {kind = "label", size = 1, text = "Hello from the Chicago shell."},
             -- A button takes the middle row of its rectangle; two rows give
             -- the pixel renderer room for the Windows 95 button height.
             {kind = "row", size = 2, children = {

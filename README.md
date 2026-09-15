@@ -1,7 +1,7 @@
-# chicago/module-template — a template for modules of the Windows 95 shell
+# chicago/module-template — a template for modules of the Chicago shell
 
 A GitHub template repository for a Wippy module that adds windows, widgets or
-games to the Windows 95 shell of the terminal desktop
+games to the Chicago shell of the terminal desktop, in the look of the mid-nineties desktops
 ([chicago/shell](https://github.com/chicago-desktop/shell) on
 [chicago/tui-desktop](https://github.com/chicago-desktop/tui-desktop)). Copy it,
 run `make init`, and you have a working, tested module with one sample window
@@ -39,8 +39,9 @@ needs, and the tests show how each part is checked.
    `TAG=acme-notes`, `GITHUB_OWNER=acme-dev`. It refuses to rename an
    initialized checkout to another identity.
 3. **Resolve the dependencies** — `make setup` writes `wippy.lock` for the
-   module and for the harness from the Hub (`chicago/shell`,
-   `chicago/tui-desktop` and the runtime modules the harness boots).
+   module and for the harness (`chicago/shell` and `chicago/tui-desktop`,
+   resolved from their GitHub repositories by tag — v0.2.0 is the first —
+   and the runtime modules the harness boots).
 4. **Run the tests** — `make test`, then look at `test/shots/hello.png`: the
    window as the shell's own renderer drew it, after two clicks.
 5. **Write your window** — edit `src/view.lua` (the window as data),
@@ -74,8 +75,8 @@ lint and test together, what CI runs.
   one picture at the two sizes the shell asks for; `tools/hello_icon.py` draws
   it (`make icons`).
 - `test/wippy.yaml`, `test/.wippy.yaml` — the harness: a tiny application
-  that boots the module (replaced with `..`) together with the shell from the
-  Hub; the overrides give the base its shell environment and the shell its
+  that boots the module (replaced with `..`) together with the shell, resolved
+  from its GitHub repository by tag; the overrides give the base its shell environment and the shell its
   user group.
 - `test/src/_index.yaml` — the harness's registry: the host resources the
   shell's boot needs (a database, a process host, a gateway on :19239, a
