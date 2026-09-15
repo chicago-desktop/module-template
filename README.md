@@ -39,9 +39,12 @@ needs, and the tests show how each part is checked.
    `TAG=acme-notes`, `GITHUB_OWNER=acme-dev`. It refuses to rename an
    initialized checkout to another identity.
 3. **Resolve the dependencies** — `make setup` writes `wippy.lock` for the
-   module and for the harness (`chicago/shell` and `chicago/tui-desktop`,
-   resolved from their GitHub repositories by tag — v0.2.0 is the first —
-   and the runtime modules the harness boots).
+   module and for the harness: `chicago/shell` and `chicago/tui-desktop`
+   resolved from their GitHub repositories by tag (`component:
+   github.com/chicago-desktop/shell`, `version: '>=0.2.0'` — v0.2.0 is the
+   first tag; the first resolve clones them into `~/.wippy/git`, later ones
+   work from that cache), and the runtime modules the harness boots from the
+   Hub. No working copy of the shell is needed beside the module.
 4. **Run the tests** — `make test`, then look at `test/shots/hello.png`: the
    window as the shell's own renderer drew it, after two clicks.
 5. **Write your window** — edit `src/view.lua` (the window as data),
@@ -101,15 +104,18 @@ lint and test together, what CI runs.
 
 ## Requirements
 
-- **A build of the runtime fork**
-  [chicago-desktop/runtime](https://github.com/chicago-desktop/runtime), branch
-  `wippy-projects`. The shell declares the `gfx` module (pixels in the
-  terminal), which the release runtime does not have — and a release `wippy`
-  does not load the shell at all; it says only
-  `node with ID {gfx :gfx} not found`. Build with
-  `CGO_CFLAGS="-I<dir with sqlite3.h>" make build-wippy-local` in the fork
-  and point the Makefile at `dist/wippy-linux-amd64`: `make test WIPPY=…`, or
-  edit the default at the top of the Makefile.
+- **A build of the runtime fork from its releases** —
+  [chicago-desktop/runtime](https://github.com/chicago-desktop/runtime),
+  `v0.3.40a-chicago.2` or newer. It is the runtime that resolves the shell
+  and the base from their GitHub repositories by tag (an older build refuses
+  the `component: github.com/…` dependency), and the shell declares the
+  `gfx` module (pixels in the terminal), which the release runtime does not
+  have — a release `wippy` does not load the shell at all; it says only
+  `node with ID {gfx :gfx} not found`. Take the binary from the release or
+  build the tag with `CGO_CFLAGS="-I<dir with sqlite3.h>" make
+  build-wippy-local`, and point the Makefile at it: `make test WIPPY=…`, or
+  edit the default at the top of the Makefile. `git` on PATH is needed for
+  the resolve.
 - **fonts-liberation** — the pixel theme reads Liberation Sans as bytes at
   run time, and the harness reads it for the shot
   (`/usr/share/fonts/truetype/liberation/`, the `system_fonts` entry).
