@@ -1,4 +1,5 @@
 import { execFileSync } from 'node:child_process'
+import { existsSync } from 'node:fs'
 import { access, readFile, readdir, stat } from 'node:fs/promises'
 import { dirname, extname, relative, resolve, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -50,6 +51,7 @@ if (!rootIndex.includes(`namespace: ${identity.namespace}`)) report('root ns.def
 // lists them under `embed:` — `wippy publish` packs src/ and nothing else,
 // and a module published without its pictures draws none.
 const embedded = new Set()
+const served = new Set()
 const embedBlock = moduleManifest.match(/^embed:\s*\n((?:[ \t]+-[^\n]*\n?)+)/m)
 for (const line of (embedBlock?.[1] ?? '').split('\n')) {
   const item = line.replace(/^\s*-\s*/, '').replace(/^['"]|['"]$/g, '').trim()
@@ -74,8 +76,19 @@ for (const file of yamlFiles) {
     if (/^\s*kind:\s*fs\.directory\s*$/.test(lines[index])) {
       const id = `${namespace}:${entryName}`
       if (!entryName || !embedded.has(id)) report(`${posix(file)}:${index + 1} fs.directory ${id} is not listed under embed: in wippy.yaml; wippy publish packs only src/ and what embed: names`)
+      const directoryLine = lines.slice(index, index + 10).find((line) => /^\s*directory:\s*/.test(line))
+      if (directoryLine) served.add(directoryLine.replace(/^\s*directory:\s*/, '').replace(/^['"]|['"]$/g, '').trim().replace(/^\.\//, '').replace(/\/$/, ''))
     }
   }
+}
+
+// Files under assets/ reach a running module only through an fs.directory
+// entry over that folder (an image pack is `meta.type: windows.images`); a
+// folder nobody serves is pictures that never show.
+const assetsRoot = resolve(root, 'assets')
+const assetFiles = existsSync(assetsRoot) ? (await walk(assetsRoot)).filter((path) => !/(^|\/)SOURCE\.md$/.test(path)) : []
+if (assetFiles.length > 0 && ![...served].some((dir) => dir === 'assets' || dir.startsWith('assets/'))) {
+  report('assets/ has files but no fs.directory entry in src/ serves it; declare an image pack (kind fs.directory, meta.type windows.images, base module, directory ./assets/images) and list it under embed:')
 }
 
 // A test file that is not in the run_cases form is counted, printed green
