@@ -11,7 +11,7 @@ local view = {}
 
 -- The module's own image pack, `<pack entry>/<file>` (src/_index.yaml,
 -- entry `images`; the files are assets/images/{32,16}/hello.png).
-view.PACK = "windows.module_template:images/"
+view.PACK = "chicago.module_template:images/"
 -- The picture for cells, where there is no pixel: one character.
 view.ICON = "☺"
 

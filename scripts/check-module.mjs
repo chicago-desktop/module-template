@@ -83,12 +83,12 @@ for (const file of yamlFiles) {
 }
 
 // Files under assets/ reach a running module only through an fs.directory
-// entry over that folder (an image pack is `meta.type: windows.images`); a
+// entry over that folder (an image pack is `meta.type: chicago.images`); a
 // folder nobody serves is pictures that never show.
 const assetsRoot = resolve(root, 'assets')
 const assetFiles = existsSync(assetsRoot) ? (await walk(assetsRoot)).filter((path) => !/(^|\/)SOURCE\.md$/.test(path)) : []
 if (assetFiles.length > 0 && ![...served].some((dir) => dir === 'assets' || dir.startsWith('assets/'))) {
-  report('assets/ has files but no fs.directory entry in src/ serves it; declare an image pack (kind fs.directory, meta.type windows.images, base module, directory ./assets/images) and list it under embed:')
+  report('assets/ has files but no fs.directory entry in src/ serves it; declare an image pack (kind fs.directory, meta.type chicago.images, base module, directory ./assets/images) and list it under embed:')
 }
 
 // A test file that is not in the run_cases form is counted, printed green

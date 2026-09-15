@@ -1,9 +1,9 @@
-# windows/module-template — a template for modules of the Windows 95 shell
+# chicago/module-template — a template for modules of the Windows 95 shell
 
 A GitHub template repository for a Wippy module that adds windows, widgets or
 games to the Windows 95 shell of the terminal desktop
-([windows/shell](https://github.com/wippy-windows/windows) on
-[windows/tui-desktop](https://github.com/wippy-windows/tui-desktop)). Copy it,
+([chicago/shell](https://github.com/chicago-desktop/shell) on
+[chicago/tui-desktop](https://github.com/chicago-desktop/tui-desktop)). Copy it,
 run `make init`, and you have a working, tested module with one sample window
 on the shell's SDK — ready for `make test` and `make publish`. It plays for
 shell modules the role the Kickside module template plays for platform
@@ -19,7 +19,7 @@ needs, and the tests show how each part is checked.
 ## Three minutes to a module of your own
 
 1. **Copy the repository** — "Use this template" on GitHub, or
-   `git clone https://github.com/wippy-windows/module-template my-module`.
+   `git clone https://github.com/chicago-desktop/module-template my-module`.
 2. **Name it** — once, from the pristine copy:
 
    ```bash
@@ -29,18 +29,18 @@ needs, and the tests show how each part is checked.
    `TITLE` names the menu folder and the harness, so it takes no slashes or
    colons; a window title with them ("Add/Remove Programs") is set in the
    entry's `meta.title` afterwards. The GitHub owner defaults to
-   `wippy-windows` for the Hub organization `windows` (`GITHUB_OWNER=` for
+   `chicago-desktop` for the Hub organization `chicago` (`GITHUB_OWNER=` for
    another).
 
-   This renames `windows/module-template`, the namespace
-   `windows.module_template` and the title everywhere (sources, tests,
+   This renames `chicago/module-template`, the namespace
+   `chicago.module_template` and the title everywhere (sources, tests,
    harness, Makefile), writes a README for the module, and records the
    identity in `.kickside-module.json`. Optional: `NAMESPACE=acme.work.notes`,
    `TAG=acme-notes`, `GITHUB_OWNER=acme-dev`. It refuses to rename an
    initialized checkout to another identity.
 3. **Resolve the dependencies** — `make setup` writes `wippy.lock` for the
-   module and for the harness from the Hub (`windows/shell`,
-   `windows/tui-desktop` and the runtime modules the harness boots).
+   module and for the harness from the Hub (`chicago/shell`,
+   `chicago/tui-desktop` and the runtime modules the harness boots).
 4. **Run the tests** — `make test`, then look at `test/shots/hello.png`: the
    window as the shell's own renderer drew it, after two clicks.
 5. **Write your window** — edit `src/view.lua` (the window as data),
@@ -62,7 +62,7 @@ lint and test together, what CI runs.
   `embed:`, the list of `fs.directory` entries that ship with it — the image
   pack is one.
 - `src/_index.yaml` — the registry: the namespace, the dependencies on
-  `windows/shell` and `windows/tui-desktop`, the image pack, the `view`
+  `chicago/shell` and `chicago/tui-desktop`, the image pack, the `view`
   library and the `window` process with its `meta.type: tui_desktop.window`
   entry (title, menu group, picture, size, pixel renderer).
 - `src/view.lua` — the window as data: `init`, `tree` (the component tree of
@@ -93,7 +93,7 @@ lint and test together, what CI runs.
   pristine template only).
 - `docs/sdk.md`, `skills/wippy-window-app/SKILL.md`,
   `.claude/skills/wippy-window-app/SKILL.md` — copies of the shell's SDK guide
-  and of its skill for agents, as of `windows/shell` 0.1.0; the shell's are
+  and of its skill for agents, as of `chicago/shell` 0.1.0; the shell's are
   canonical.
 - `Makefile`, `make.ps1`, `make.bat` — the same targets on Linux, macOS and
   Windows.
@@ -101,7 +101,7 @@ lint and test together, what CI runs.
 ## Requirements
 
 - **A build of the runtime fork**
-  [wippy-windows/runtime](https://github.com/wippy-windows/runtime), branch
+  [chicago-desktop/runtime](https://github.com/chicago-desktop/runtime), branch
   `wippy-projects`. The shell declares the `gfx` module (pixels in the
   terminal), which the release runtime does not have — and a release `wippy`
   does not load the shell at all; it says only
@@ -126,7 +126,7 @@ any wiring of its own:
   own data.
 - **The tray** — a service of the module may put an item next to the clock
   with the compositor's `desktop.tray` command (the weather module does).
-- **Desktop widgets** — a `process.lua` with `meta.type: windows.widget` is a
+- **Desktop widgets** — a `process.lua` with `meta.type: chicago.widget` is a
   panel at the right edge of the desktop, drawn from the same kind of tree
   ([docs/sdk.md, "Desktop widgets"](docs/sdk.md#desktop-widgets)).
 - **Pictures** — the image pack is found in the registry when a picture is

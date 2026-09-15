@@ -2,11 +2,11 @@
   "templateVersion": 1,
   "initialized": false,
   "identity": {
-    "organization": "windows",
+    "organization": "chicago",
     "module": "module-template",
-    "namespace": "windows.module_template",
-    "tag": "windows-module-template",
+    "namespace": "chicago.module_template",
+    "tag": "chicago-module-template",
     "title": "Module Template",
-    "githubOwner": "wippy-windows"
+    "githubOwner": "chicago-desktop"
   }
 }

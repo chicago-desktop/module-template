@@ -12,12 +12,12 @@ local definition = window.definition
 local function define_tests()
     test.describe("Hello window", function()
         test.it("is a window on the shell SDK in Programs, with the pack's picture at both sizes", function()
-            local entry = assert(registry.get("windows.module_template:window"))
+            local entry = assert(registry.get("chicago.module_template:window"))
             local meta: any = entry.meta
             test.eq(table.concat({meta.type, meta.title, meta.group, meta.image, meta.pixel_render, meta.pixel_state}, "|"),
-                "tui_desktop.window|Hello Window|Programs/Module Template|windows.module_template:images/hello|"
-                    .. "windows.shell.sdk:render|windows.module_template:window")
-            test.eq(view.PACK, "windows.module_template:images/")
+                "tui_desktop.window|Hello Window|Programs/Module Template|chicago.module_template:images/hello|"
+                    .. "chicago.shell.sdk:render|chicago.module_template:window")
+            test.eq(view.PACK, "chicago.module_template:images/")
             for _, size in ipairs({32, 16}) do
                 local picture, why = images.get(view.PACK .. "hello", size)
                 test.not_nil(picture, "hello@" .. tostring(size) .. ": " .. tostring(why))

@@ -1,7 +1,7 @@
 version: "1.0"
-namespace: windows.module_template
+namespace: chicago.module_template
 
-# A module of the Windows 95 shell (windows/shell): one sample window on the
+# A module of the Windows 95 shell (chicago/shell): one sample window on the
 # shell's SDK, split in two — `view` is the window as data (a pure library
 # the tests exercise) and `window` is the process that runs it — plus the
 # module's own image pack for the window's picture.
@@ -21,45 +21,45 @@ entries:
   # A compatibility range, never an exact version: the lock holds the exact
   # one. `*` is any published version.
   - version: "*"
-    name: dep.windows.shell
+    name: dep.chicago.shell
     kind: ns.dependency
     meta:
       comment: The Windows 95 shell — its SDK lays out and draws the window, its image packs bring the pictures.
-    component: windows/shell
+    component: chicago/shell
 
   - version: "*"
-    name: dep.windows.tui_desktop
+    name: dep.chicago.tui_desktop
     kind: ns.dependency
     meta:
       comment: The desktop base — the compositor that owns the window's frame, size and input.
-    component: windows/tui-desktop
+    component: chicago/tui-desktop
 
-  # windows.module_template:images
+  # chicago.module_template:images
   #
-  # An image pack of the shell (`meta.type: windows.images`; the shell's
+  # An image pack of the shell (`meta.type: chicago.images`; the shell's
   # docs/icons.md, "Image packs"): PNG files lie as `<size>/<name>.png` and
-  # the window names one `windows.module_template:images/hello`. The pack
+  # the window names one `chicago.module_template:images/hello`. The pack
   # lives outside src/, so wippy.yaml lists it under `embed:` — without that
   # the published module has no pictures.
   - name: images
     kind: fs.directory
     meta:
-      type: windows.images
+      type: chicago.images
       comment: "The module's pictures — the sample window's balloon at 32 and 16 px, an image pack of the shell."
     base: module
     directory: ./assets/images
     auto_init: false
 
-  # windows.module_template:view
+  # chicago.module_template:view
   - name: view
     kind: library.lua
     meta:
       comment: "The sample window as data — the component tree of a model (the menu, a line of text, a button that counts its clicks, the status bar, About) and what an action does to it; pure over the model."
     source: file://view.lua
     imports:
-      ui: windows.shell.sdk:ui
+      ui: chicago.shell.sdk:ui
 
-  # windows.module_template:window
+  # chicago.module_template:window
   #
   # The Start menu finds a `process.lua` with `meta.type: tui_desktop.window`.
   # `group` is the menu folder (a module's windows go under Programs/<Module>),
@@ -72,7 +72,7 @@ entries:
     meta:
       type: tui_desktop.window
       title: Hello Window
-      image: windows.module_template:images/hello
+      image: chicago.module_template:images/hello
       icon: "☺"
       group: Programs/Module Template
       order: 100
@@ -80,16 +80,16 @@ entries:
       height: 14
       window_type: app
       resizable: true
-      pixel_render: windows.shell.sdk:render
-      pixel_state: windows.module_template:window
+      pixel_render: chicago.shell.sdk:render
+      pixel_state: chicago.module_template:window
       comment: "Hello Window — a sample window on the shell SDK with a menu, a line of text, a button that counts its clicks and a status bar."
     source: file://window.lua
     method: main
     imports:
-      app: windows.shell.sdk:app
-      view: windows.module_template:view
+      app: chicago.shell.sdk:app
+      view: chicago.module_template:view
     # The shell's policy for a view window's state provider: the process
     # context, the compositor's name in the process registry, sending it
     # the state. Add a policy of your own only for what your window reads.
     security:
-      policies: [windows.shell.security:view_state]
+      policies: [chicago.shell.security:view_state]

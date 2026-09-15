@@ -1,8 +1,8 @@
-organization: windows
+organization: chicago
 module: module-template
-description: A module of the Windows 95 shell (windows/shell) made from the Windows module template — one sample window on the shell SDK, with its tests and its image pack.
+description: A module of the Windows 95 shell (chicago/shell) made from the Windows module template — one sample window on the shell SDK, with its tests and its image pack.
 license: MIT
-repository: https://github.com/wippy-windows/module-template
+repository: https://github.com/chicago-desktop/module-template
 homepage: https://wippy.ai
 keywords:
   - kickside
@@ -28,4 +28,4 @@ exclude:
 # lies outside src/, so without this line the published module has no
 # pictures. Add every pack and asset directory your module declares.
 embed:
-  - windows.module_template:images
+  - chicago.module_template:images

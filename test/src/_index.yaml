@@ -1,7 +1,7 @@
 version: "1.0"
 namespace: app
 
-# Standalone harness for windows/module-template. Provides the host resources
+# Standalone harness for chicago/module-template. Provides the host resources
 # the boot needs (app:db, app:processes, a gateway and a router for the
 # shell's endpoints, env storage, a permissive actor scope) and runs the
 # co-located *_test.lua suites. Excluded from publish by the module's
@@ -23,7 +23,7 @@ entries:
       type: test
       comment: "The sample window as data — the initial tree, the click count, Exit, About, the layout in cells, and test/shots/hello.png drawn by the shell's renderer."
       group: Module Template
-      suite: windows_module_template
+      suite: chicago_module_template
     source: file://view_test.lua
     method: run
     # `gfx` and `fs` for the shot: the font arrives as bytes read from
@@ -31,11 +31,11 @@ entries:
     modules: [tty, gfx, fs]
     imports:
       test: wippy.test:test
-      ui: windows.shell.sdk:ui
-      app: windows.shell.sdk:app
-      render: windows.shell.sdk:render
-      rasters: windows.shell.theme:rasters
-      view: windows.module_template:view
+      ui: chicago.shell.sdk:ui
+      app: chicago.shell.sdk:app
+      render: chicago.shell.sdk:render
+      rasters: chicago.shell.theme:rasters
+      view: chicago.module_template:view
 
   - name: window_test
     kind: function.lua
@@ -43,7 +43,7 @@ entries:
       type: test
       comment: "The sample window's process — the registry entry the Start menu reads, the pack's picture found by the shell, and the process running the view."
       group: Module Template
-      suite: windows_module_template
+      suite: chicago_module_template
     source: file://window_test.lua
     method: run
     # Reading a pack takes `registry.get` as well as `fs.get`, and `gfx` to
@@ -51,10 +51,10 @@ entries:
     modules: [gfx, fs, registry]
     imports:
       test: wippy.test:test
-      app: windows.shell.sdk:app
-      images: windows.shell.theme:images
-      view: windows.module_template:view
-      window: windows.module_template:window
+      app: chicago.shell.sdk:app
+      images: chicago.shell.theme:images
+      view: chicago.module_template:view
+      window: chicago.module_template:window
 
   - name: shots
     kind: fs.directory
@@ -120,7 +120,7 @@ entries:
     kind: ns.dependency
     meta:
       comment: The module under test; its source is replaced with ../ in .wippy.yaml.
-    component: "windows/module-template"
+    component: "chicago/module-template"
 
   - name: module_template_harness.dep.migration
     version: "*"
